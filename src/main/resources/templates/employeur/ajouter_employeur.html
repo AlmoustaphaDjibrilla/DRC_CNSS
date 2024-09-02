@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ajouter un Employeur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .section-title {
+            background-color: #133B92;
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+        .btn-primary {
+            background-color: #133B92;
+            border-color: #133B92;
+        }
+        .btn-primary:hover {
+            background-color: #0b2d70;
+            border-color: #0b2d70;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-4">Ajouter un Employeur</h2>
+    <form method="post" enctype="multipart/form-data" th:action="@{/employeur/ajouter_employeur}" th:object="${nouvelEmployeur}">
+
+        <!-- Informations de Base -->
+        <div class="section-title">Informations de Base</div>
+        <div class="form-group">
+            <label for="numeroEmployeur" class="form-label">Numéro Employeur</label>
+            <input type="text" id="numeroEmployeur" name="numeroEmployeur" class="form-control" placeholder="Numéro employeur" required th:field="${nouvelEmployeur.numeroEmployeur}">
+        </div>
+        <div class="form-group">
+            <label for="nom" class="form-label">Nom (ou Raison Sociale)</label>
+            <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'employeur" th:field="${nouvelEmployeur.nom}" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" id="prenom" name="nom" class="form-control" placeholder="Prénom de l'employeur" th:field="${nouvelEmployeur.prenom}" >
+        </div>
+        <div class="form-group">
+            <label for="date" class="form-label">Date embauche (1er salarié)</label>
+            <input type="date" id="date" name="nom" class="form-control" th:field="${nouvelEmployeur.dateEmbauche}">
+        </div>
+        <div class="form-group">
+            <label for="nbrSala" class="form-label">Nombre de salariés</label>
+            <input type="number" min="0" id="nbrSala" name="nom" class="form-control" placeholder="0" th:field="${nouvelEmployeur.nombreSalaries}" >
+        </div>
+<!--        <div class="form-group">-->
+<!--            <label for="typeEmployeur" class="form-label">Type d'Employeur</label>-->
+<!--            <input type="text" id="typeEmployeur" name="typeEmployeur" class="form-control" placeholder="Type d'employeur" required>-->
+<!--        </div>-->
+        <div class="form-group">
+            <label for="selectDomaine" class="form-label">Domaine d'Activité</label>
+            <select id="selectDomaine" class="form-select" required th:field="${nouvelEmployeur.domaineActivite}">
+                <option th:value="prive" selected>Privé</option>
+                <option th:value="administratif">Administratif</option>
+                <option th:value="gens_de_maison">Gens de maison</option>
+            </select>
+        </div>
+
+        <!-- Informations Administratives -->
+        <div class="section-title">Informations Administratives</div>
+        <div class="form-group">
+            <label for="rccm" class="form-label">N° RCCM</label>
+            <input type="text" id="rccm" name="rccm" class="form-control" placeholder="Numéro RCCM" th:field="${nouvelEmployeur.rccm}" required>
+        </div>
+        <div class="form-group">
+            <label for="nif" class="form-label">NIF</label>
+            <input type="text" id="nif" name="nif" class="form-control" placeholder="Numéro NIF" th:field="${nouvelEmployeur.nif}" required>
+        </div>
+        <div class="form-group">
+            <label for="statutJuridique" class="form-label">Sigle Société</label>
+            <input type="text" id="statutJuridique" name="statutJuridique" class="form-control" th:field="${nouvelEmployeur.sigleSociete}" placeholder="Sigle Société">
+        </div>
+        <div class="form-group">
+            <label for="selectAssurance" class="form-label">Type d'assurance</label>
+            <select id="selectAssurance" class="form-select" required th:field="${nouvelEmployeur.typeAssurance}">
+                <option th:value="obligatoire" selected>Obligatoire</option>
+                <option th:value="volontaire">Volontaire</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="piecesJointes" class="form-label">Pièces jointes</label>
+            <input multiple type="file" name="piecesJointes" class="form-control" id="piecesJointes">
+        </div>
+
+        <!-- Informations de Contact -->
+        <div class="section-title">Informations de Contact</div>
+        <div class="form-group">
+            <label for="adresse" class="form-label">Adresse</label>
+            <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Adresse" th:field="${nouvelEmployeur.adresse}" required>
+        </div>
+        <div class="form-group">
+            <label for="region" class="form-label">Région</label>
+            <select id="region" class="form-select" required th:field="${nouvelEmployeur.region}">
+                <option th:value="default" selected>Sélectionner une région</option>
+                <option th:value="Agadez">Agadez</option>
+                <option th:value="Diffa">Diffa</option>
+                <option th:value="Dosso">Dosso</option>
+                <option th:value="Maradi">Maradi</option>
+                <option th:value="Niamey">Niamey</option>
+                <option th:value="Tahoua">Tahoua</option>
+                <option th:value="Tillabery">Tillabery</option>
+                <option th:value="Zinder">Zinder</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="telephone" class="form-label">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="Numéro de téléphone" th:field="${nouvelEmployeur.telephone}" required>
+        </div>
+        <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" th:field="${nouvelEmployeur.mail}">
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-circle"></i> Ajouter Employeur
+            </button>
+            <a th:href="@{/employeur/liste_employeurs}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

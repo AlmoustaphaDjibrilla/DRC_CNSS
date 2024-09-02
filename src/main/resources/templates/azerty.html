@@ -1,0 +1,83 @@
+<div class="d-flex">
+  <!-- Sidebar -->
+  <div th:fragment="sidebar" class="sidebar d-flex flex-column p-3 text-white">
+    <!-- Sidebar toggle button for mobile -->
+    <button class="btn btn-primary d-md-none mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <a href="#" aria-label="Toggle Sidebar">
+      <i class="fas fa-bars"></i>
+    </a>
+    <a href="#">Admin</a>
+    <a href="#">Inscription</a>
+    <a href="#">Cotisation</a>
+    <a href="#">Contentieux</a>
+    <a href="#">Contrôle</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content flex-grow-1">
+    <!-- Top Bar -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4>Module Inscriptions</h4>
+      <div class="d-flex align-items-center">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            IDRISSA Seyni
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">Profil</a></li>
+            <li><a class="dropdown-item" href="#">Paramètres</a></li>
+            <li><a class="dropdown-item" href="#">Déconnexion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <a th:href="@{/personne/liste_personnes}" href="liste_personnes.html" class="text-decoration-none">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-users card-icon text-primary"></i>
+              <h5 class="card-title">Déposants</h5>
+              <p class="card-text" th:text="${nombreDeposants}"></p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a th:href="@{/employeur/liste_employeurs}" href="liste_personnes.html" class="text-decoration-none">
+          <div class="card text-center">
+            <div class="card-body">
+              <i class="fas fa-briefcase card-icon text-info"></i>
+              <h5 class="card-title">Employeurs</h5>
+              <p class="card-text" th:text="${nombreEmployeurs}"></p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <i class="fas fa-user-shield card-icon text-success"></i>
+            <h5 class="card-title">Assurés</h5>
+            <p class="card-text">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <i class="fas fa-truck card-icon text-warning"></i>
+            <h5 class="card-title">Transporteurs Indépendants</h5>
+            <p class="card-text">576</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

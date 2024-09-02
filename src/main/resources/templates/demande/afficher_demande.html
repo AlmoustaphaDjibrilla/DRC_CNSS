@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Affichage du contenu d'une demande</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mb-5">Affichage du contenu d'une demande</h1>
+
+    <form method="post" enctype="multipart/form-data" th:object="${afficherDemandeDTO}">
+
+        <div class="card mt-5">
+            <div class="card-header bg-primary text-white">
+                <h5 th:field="${afficherDemandeDTO.libelle}" th:text="${afficherDemandeDTO.libelle}" th:value="${afficherDemandeDTO.libelle}"></h5>
+            </div>
+
+            <div class="card-body">
+
+                <!-- Le déposant -->
+                <fieldset class="border p-4 mb-4">
+                    <legend class="w-auto">Le déposant</legend>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Nom ou Raison sociale</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.personne.nom}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Prénom</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.personne.prenom}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Téléphone</label>
+                            <input readonly type="tel" class="form-control" th:field="${afficherDemandeDTO.personne.telephone}">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Détails de la demande -->
+                <fieldset class="border p-4 mb-4">
+                    <legend class="w-auto">Détails de la demande</legend>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Domaine activité</label>
+                            <select class="form-select" th:field="${afficherDemandeDTO.domaineActivite}">
+                                <option selected th:value="${afficherDemandeDTO.domaineActivite}" th:text="${afficherDemandeDTO.domaineActivite}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Date embauche (1er salarié)</label>
+                            <input readonly type="date" class="form-control" th:field="${afficherDemandeDTO.dateEmbauche}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Nombre de salariés</label>
+                            <input readonly min="0" type="number" class="form-control" th:field="${afficherDemandeDTO.nombreSalaries}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Date de dépôt</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.dateDepot}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Numéro RCCM</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.rccm}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">NIF</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.nif}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Sigle société</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.sigleSociete}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Type d'assurance</label>
+                            <select class="form-select" th:field="${afficherDemandeDTO.typeAssurance}">
+                                <option selected th:value="${afficherDemandeDTO.typeAssurance}" th:text="${afficherDemandeDTO.typeAssurance}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Adresse -->
+                <fieldset class="border p-4 mb-4">
+                    <legend class="w-auto">Adresse</legend>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Adresse</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.adresse}">
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Région</label>
+                            <select class="form-select" th:field="${afficherDemandeDTO.region}">
+                                <option selected th:value="${afficherDemandeDTO.region}" th:text="${afficherDemandeDTO.region}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Ville</label>
+                            <select class="form-select" th:field="${afficherDemandeDTO.ville}">
+                                <option selected th:value="${afficherDemandeDTO.ville}" th:text="${afficherDemandeDTO.ville}"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Boite postale</label>
+                            <input readonly type="text" class="form-control" th:field="${afficherDemandeDTO.boitePostale}">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Pièces jointes -->
+                <fieldset class="border p-4 mb-4">
+                    <legend class="w-auto">Pièces jointes</legend>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Nom fichier</th>
+                                <th>Télécharger</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="fichier : ${fichiersDemande}">
+                                <td th:text="${fichier.nomFichier}"></td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm"
+                                       th:href="@{/fichier/telecharger_fichier(idFichier=${fichier.id})}">Télécharger</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+
+                <!-- Numéro employeur -->
+                <fieldset class="border p-4 mb-4">
+                    <legend class="w-auto">Numéro employeur</legend>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <label class="form-label">Numéro employeur</label>
+                            <input required type="text" class="form-control" th:field="${afficherDemandeDTO.numeroEmployeur}">
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <div class="card-footer d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary me-2">Générer le numéro employeur</button>
+                <a type="submit" class="btn btn-success" th:href="@{/employeur/enregistrer_employeur(idDemande=${afficherDemandeDTO.id})}">Valider la demande</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

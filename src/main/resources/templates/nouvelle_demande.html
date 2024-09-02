@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page d'enregistrement d'une nouvelle demande</title>
+</head>
+<body>
+<h1>Enregistrer une nouvelle demande</h1>
+
+<p>Veuillez d'abord saisir les infos de la personne ou la recherher si elle existe</p>
+<p>Rechercher <input type="text"  /> <input type="button" value="Rechercher" /> </p>
+
+<form method="post" th:action="@{/personne/nouvelle_personne}" th:object="${personne}">
+
+    <p>Informations sur l'intéressé</p>
+    <p>Nom : <input type="text" th:field="${personne.nom}" /></p>
+    <p>Prénom : <input type="text" th:field="${personne.prenom}" /></p>
+    <p>Identité : <input type="text"  /></p>
+    <p>Téléphone : <input type="tel" th:field="${personne.telephone}" /></p>
+    <p>E-mail : <input type="email"  /></p>
+    <p>Sexe : <input type="text" th:field="${personne.sexe}"/></p>
+
+    <p> <input type="submit" value="valider personne" /></p>
+</form>
+</body>
+</html>
