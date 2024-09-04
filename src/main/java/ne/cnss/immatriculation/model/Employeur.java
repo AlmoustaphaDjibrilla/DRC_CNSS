@@ -202,4 +202,31 @@ public class Employeur implements Serializable {
     public void setDateEnregistrement(String dateEnregistrement) {
         this.dateEnregistrement = dateEnregistrement;
     }
+
+    @Override
+    public String toString() {
+        return "Employeur{" +
+                "numeroEmployeur='" + numeroEmployeur + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", mail='" + mail + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", dateEnregistrement='" + dateEnregistrement + '\'' +
+                ", sigleSociete='" + sigleSociete + '\'' +
+                ", rccm='" + rccm + '\'' +
+                ", nif='" + nif + '\'' +
+                ", typeAssurance='" + typeAssurance + '\'' +
+                ", domaineActivite='" + domaineActivite + '\'' +
+                ", nombreSalaries=" + nombreSalaries +
+                ", dateEmbauche='" + dateEmbauche + '\'' +
+                ", etat='" + etat + '\'' +
+                ", etatValidation='" + etatValidation + '\'' +
+                ", estSoumisPenalite='" + estSoumisPenalite + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", region='" + region + '\'' +
+                ", ville='" + ville + '\'' +
+                ", boitePostale='" + boitePostale + '\'' +
+                '}';
+    }
 }

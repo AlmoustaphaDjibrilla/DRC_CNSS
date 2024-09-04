@@ -52,11 +52,14 @@
         <!-- Informations de Base -->
         <div class="section-title">Informations de Base</div>
         <div class="form-group">
-            <label for="numeroEmployeur" class="form-label">Numéro Employeur</label>
+            <label for="numeroEmployeur" class="form-label">
+                <i class="fas fa-id-card me-2"></i>
+                Numéro Employeur</label>
             <input type="text" id="numeroEmployeur" name="numeroEmployeur" class="form-control" placeholder="Numéro employeur" required th:field="${nouvelEmployeur.numeroEmployeur}">
         </div>
         <div class="form-group">
-            <label for="nom" class="form-label">Nom (ou Raison Sociale)</label>
+            <label for="nom" class="form-label">
+                Nom (ou Raison Sociale)</label>
             <input type="text" id="nom" name="nom" class="form-control" placeholder="Nom de l'employeur" th:field="${nouvelEmployeur.nom}" required>
         </div>
         <div class="form-group">
@@ -65,7 +68,7 @@
         </div>
         <div class="form-group">
             <label for="date" class="form-label">Date embauche (1er salarié)</label>
-            <input type="date" id="date" name="nom" class="form-control" th:field="${nouvelEmployeur.dateEmbauche}">
+            <input type="date" id="date" name="nom" class="form-control" th:field="${nouvelEmployeur.dateEmbauche}" th:value="${nouvelEmployeur.dateEmbauche}">
         </div>
         <div class="form-group">
             <label for="nbrSala" class="form-label">Nombre de salariés</label>

@@ -24,8 +24,9 @@ public class Fichier {
     private Personne personne;
     private Long idDemande;
     private Long idPersonne;
-    private String numeroEmployeur;
+    @ManyToOne
     private Employeur employeur;
+    private String numeroEmployeur;
 
     public Fichier() {
     }

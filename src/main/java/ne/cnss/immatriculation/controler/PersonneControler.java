@@ -137,4 +137,29 @@ public class PersonneControler {
         }
         return "redirect:liste_personnes";
     }
+
+    @GetMapping("/personne/recherche")
+    public String searchPersonne(@RequestParam("keyword")String keyword, Model model) {
+        String key2 = keyword.replaceAll(" ", "").toLowerCase();
+        List<Personne> all = personneService.findAll();
+        List<Personne> trouves = new ArrayList<>();
+        if (key2 != null && !key2.isEmpty() && !key2.isBlank()) {
+            for (var per: all){
+                if (
+                        String.valueOf(per.getId()).replaceAll(" ","").contains(key2)
+                        || (per.getNom()!=null && per.getNom().replaceAll(" ", "").contains(key2))
+                        || (per.getPrenom()!=null && per.getPrenom().replaceAll(" ", "").contains(key2))
+                        || (per.getTelephone()!=null && per.getTelephone().replaceAll(" ", "").contains(key2))
+                        || (per.getSexe()!=null && per.getSexe().replaceAll(" ", "").contains(key2))
+                ){
+                    trouves.add(per);
+                }
+            }
+        }else {
+            trouves= new ArrayList<>(all);
+        }
+        model.addAttribute("personnes", trouves);
+        model.addAttribute("keyword", keyword);
+        return "liste_personnes";
+    }
 }

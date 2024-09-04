@@ -1,6 +1,7 @@
 package ne.cnss.immatriculation.service;
 
 import ne.cnss.immatriculation.model.Demande;
+import ne.cnss.immatriculation.model.Employeur;
 import ne.cnss.immatriculation.model.Fichier;
 import ne.cnss.immatriculation.repository.FichierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,14 @@ public class FichierService {
         return lesFichiers;
     }
 
-//    public Stream<Fichier> findFichiersByDemande(Demande demande){
-//        return fichierRepository.findFichiersByDemande(demande).stream();
-//    }
+    public List<Fichier> findFichiersByEmployeur(String numeroEmployeur){
+        List<Fichier> all = fichierRepository.findAll();
+        List<Fichier> lesFichiers= new ArrayList<>();
+        for (var file: all){
+            if (file.getNumeroEmployeur()!=null && file.getNumeroEmployeur().equals(numeroEmployeur)){
+                lesFichiers.add(file);
+            }
+        }
+        return lesFichiers;
+    }
 }

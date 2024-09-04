@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Modification de l'Employeur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .section-title {
+            background-color: #133B92;
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+        .info-row {
+            margin-bottom: 1rem;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .info-value {
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<form class="container" enctype="multipart/form-data" method="post"  th:object="${employeur}" th:action="@{/employeur/modifier_employeur(numeroEmployeur=${employeur.numeroEmployeur})}">
+    <h2 class="text-center mb-4">Modification de l'Employeur</h2>
+
+    <!-- Informations de Base -->
+    <div class="section-title">Informations de Base</div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Numéro Employeur :</div>
+        <div class="col-md-8 info-value" th:text="${employeur.numeroEmployeur}"></div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Nom (ou Raison Sociale) :</div>
+        <div class="col-md-8 info-value" >
+            <input type="text" class="form-control" th:field="${employeur.nom}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Prénom :</div>
+        <div class="col-md-8 info-value" >
+            <input type="text" class="form-control" th:field="${employeur.prenom}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Date embauche :</div>
+        <div class="col-md-8 info-value">
+            <input type="date" class="form-control" th:field="${employeur.dateEmbauche}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Nombre de salariés :</div>
+        <div class="col-md-8 info-value" >
+            <input type="number" class="form-control" th:field="${employeur.nombreSalaries}">
+        </div>
+    </div>
+
+    <!-- Informations Administratives -->
+    <div class="section-title">Informations Administratives</div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">N° RCCM :</div>
+        <div class="col-md-8 info-value">
+            <input type="text" class="form-control" th:field="${employeur.rccm}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">NIF :</div>
+        <div class="col-md-8 info-value" >
+            <input type="text" class="form-control" th:field="${employeur.nif}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Sigle Société :</div>
+        <div class="col-md-8 info-value" >
+            <input type="text" class="form-control" th:field="${employeur.sigleSociete}">
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Type d'assurance :</div>
+        <div class="col-md-8 info-value">
+            <select id="selectAssurance" class="form-select" required th:field="${employeur.typeAssurance}">
+                <option th:value="Obligatoire" selected>Obligatoire</option>
+                <option th:value="Volontaire">Volontaire</option>
+            </select>
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Enregistré le :</div>
+        <div class="col-md-8 info-value" th:text="${employeur.dateEnregistrement}"></div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Pièces jointes</div>
+        <div class="col-md-8 info-value">
+            <table class="table table-hover">
+                <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Nom fichier</th>
+                    <th>Visualiser</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="fichier : ${lesPieces}">
+                    <td th:text="${lesPieces.indexOf(fichier)+1}"></td>
+                    <td th:text="${fichier.nomFichier}"></td>
+                    <td>
+                        <a class="btn btn-primary btn-sm"
+                           th:href="@{/fichier/telecharger_fichier(idFichier=${fichier.id})}">Télécharger
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Ajouter fichiers</div>
+        <div class="col-md-8 info-value">
+            <input multiple type="file" name="piecesJointes" class="form-control" id="piecesJointes">
+        </div>
+    </div>
+
+    <!-- Informations de Contact -->
+    <div class="section-title">Informations de Contact</div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Adresse :</div>
+        <div class="col-md-8 info-value">
+            <input type="text" id="adresse" name="adresse" class="form-control" placeholder="Adresse" th:field="${employeur.adresse}" required>
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Région :</div>
+        <div class="col-md-8 info-value" >
+            <select id="region" class="form-select" required th:field="${employeur.region}">
+                <option th:value="default" selected>Sélectionner une région</option>
+                <option th:value="Agadez">Agadez</option>
+                <option th:value="Diffa">Diffa</option>
+                <option th:value="Dosso">Dosso</option>
+                <option th:value="Maradi">Maradi</option>
+                <option th:value="Niamey">Niamey</option>
+                <option th:value="Tahoua">Tahoua</option>
+                <option th:value="Tillabery">Tillabery</option>
+                <option th:value="Zinder">Zinder</option>
+            </select>
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Téléphone :</div>
+        <div class="col-md-8 info-value">
+            <input type="tel" id="telephone" name="telephone" class="form-control" placeholder="Numéro de téléphone" th:field="${employeur.telephone}" required>
+        </div>
+    </div>
+    <div class="row info-row">
+        <div class="col-md-4 info-label">Email :</div>
+        <div class="col-md-8 info-value">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" th:field="${employeur.mail}">
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a th:href="@{/employeur/liste_employeurs}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Retour à la liste
+        </a>
+
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-save"></i> Enregistrer
+        </button>
+    </div>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

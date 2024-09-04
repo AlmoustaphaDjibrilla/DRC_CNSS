@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Dashboard</title>
+  <title>Page principale</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <style>
@@ -44,12 +44,23 @@
     <a href="#" class="text-center mb-3">
       <i class="fas fa-bars"></i>
     </a>
-    <a href="#">Admin</a>
-    <a href="#">Inscription</a>
-    <a href="#">Cotisation</a>
-    <a href="#">Contentieux</a>
-    <a href="#">Contrôle</a>
+    <a href="#">
+      <i class="fas fa-user-shield me-2"></i> Admin
+    </a>
+    <a href="/">
+      <i class="fas fa-user-plus me-2"></i> Inscription
+    </a>
+    <a href="#">
+      <i class="fas fa-coins me-2"></i> Cotisation
+    </a>
+    <a href="#">
+      <i class="fas fa-gavel me-2"></i> Contentieux
+    </a>
+    <a href="#">
+      <i class="fas fa-search me-2"></i> Contrôle
+    </a>
   </div>
+
 
   <!-- Main content -->
   <div class="main-content flex-grow-1">
@@ -87,7 +98,7 @@
         <a th:href="@{/employeur/liste_employeurs}" href="liste_personnes.html" class="text-decoration-none">
         <div class="card text-center">
           <div class="card-body">
-            <i class="fas fa-user-check card-icon text-info"></i>
+            <i class="fas fa-briefcase card-icon text-info"></i>
             <h5 class="card-title">Employeurs</h5>
             <p class="card-text" th:text="${nombreEmployeurs}"></p>
           </div>
@@ -97,7 +108,7 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <i class="fas fa-user-check card-icon text-info"></i>
+            <i class="fas fa-id-card card-icon text-success"></i>
             <h5 class="card-title">Assurés</h5>
             <p class="card-text">0</p>
           </div>
@@ -106,9 +117,9 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <i class="fas fa-user-check card-icon text-info"></i>
+            <i class="fas fa-truck card-icon text-warning"></i>
             <h5 class="card-title">Transporteurs Indépendants</h5>
-            <p class="card-text">576</p>
+            <p class="card-text">0</p>
           </div>
         </div>
       </div>

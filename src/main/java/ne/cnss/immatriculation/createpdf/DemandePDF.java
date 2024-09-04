@@ -11,13 +11,16 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
+import com.itextpdf.layout.border.SolidBorder;
 import com.itextpdf.layout.element.*;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import ne.cnss.immatriculation.ImmatriculationApplication;
 import ne.cnss.immatriculation.model.Demande;
+import ne.cnss.immatriculation.model.Employeur;
 import ne.cnss.immatriculation.model.Fichier;
+import ne.cnss.immatriculation.model.Notification;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,16 +68,11 @@ public class DemandePDF {
             cell.add(entete);
 
 
+            //rajouter le logo de la CNSS sur le recepissé de la CNSS
             ImageData imageData = ImageDataFactory.create("images\\logo cnss.jpg");
             Image image= new Image(imageData);
             image.setHeight(50f).setWidth(50f).setMarginLeft(110f);
             cell.add(image);
-
-            //rajouter le logo de la CNSS sur le recepissé de la CNSS
-//            ImageData imageData = ImageDataFactory.create("logo cnss.jpg");
-//            Image image=new Image(imageData);
-//            image.setHeight(50f).setWidth(50f);
-//            document.add(image);
 
             cell.add(new Paragraph("CAISSE NATIONALE DE\nSECURITE SOCIALE").setFontSize(10f).setTextAlignment(TextAlignment.CENTER).setFont(bold));
 
@@ -183,4 +181,5 @@ public class DemandePDF {
         }
         return fichier;
     }
+
 }

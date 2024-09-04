@@ -11,4 +11,5 @@ import java.util.List;
 public interface FichierRepository extends JpaRepository<Fichier, Long> {
 
     List<Fichier> findFichiersByDemande(Demande demande);
+    List<Fichier> findFichiersByNumeroEmployeur(String numeroEmployeur);
 }
