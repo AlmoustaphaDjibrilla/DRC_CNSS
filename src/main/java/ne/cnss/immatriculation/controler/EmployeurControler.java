@@ -1,5 +1,6 @@
 package ne.cnss.immatriculation.controler;
 
+import ne.cnss.immatriculation.Traitement;
 import ne.cnss.immatriculation.createpdf.NotificationPDF;
 import ne.cnss.immatriculation.dto.DemandeDTO;
 import ne.cnss.immatriculation.model.*;
@@ -11,10 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -69,7 +67,7 @@ public class EmployeurControler {
                 employeur.setNumeroEmployeur(demandeDTO.getNumeroEmployeur());
             else
                 employeur.setNumeroEmployeur(demandeById.getNumeroEmployeur());
-            employeur.setEtat("validé");
+            employeur.setEtat("Validé");
 
             employeurService.saveEmployeur(employeur);
             Personne personne = demandeById.getPersonne();
@@ -243,6 +241,7 @@ public class EmployeurControler {
             Employeur employeurByNumeroEmployeur = employeurService.findEmployeurByNumeroEmployeur(numeroEmployeur);
             model.addAttribute("employeur", employeurByNumeroEmployeur);
             model.addAttribute("lesPieces",fichierService.findFichiersByEmployeur(employeurByNumeroEmployeur.getNumeroEmployeur()));
+            model.addAttribute("lesMotifs", Traitement.getMotifsRadiationEmployeur());
         }catch (Exception e){
             System.out.println("Exception : "+e.getMessage());
         }
@@ -292,6 +291,59 @@ public class EmployeurControler {
                     fichierService.saveFicher(fichier);
                 }
             }
+        }catch (Exception e){
+            System.out.println("Exception : "+e.getMessage());
+        }
+        return "redirect:liste_employeurs";
+    }
+
+    @PostMapping("employeur/modifier_etat_employeur")
+    public String modifierEtatEmployeur(
+            Model model,
+            @ModelAttribute Employeur employeur,
+            @RequestParam() String numeroEmployeur,
+            @RequestParam("motifPieces")MultipartFile[] files
+    ){
+        try {
+            Employeur employeurByNumeroEmployeur = employeurService.findEmployeurByNumeroEmployeur(employeur.getNumeroEmployeur());
+            employeurByNumeroEmployeur.setMotif(employeur.getMotif());
+            switch (employeur.getAction()){
+                case "suspendre":
+                    //Suspension de l'employeur
+                    employeurByNumeroEmployeur.setEtat("Suspendu");
+                    break;
+
+                case "radier":
+                    //Radiation de l'employeur
+                    employeurByNumeroEmployeur.setEtat("Radié");
+                    break;
+
+                case "reaffilier":
+                    //Réaffiliation de l'employeur
+                    employeurByNumeroEmployeur.setEtat("Réaffilié");
+                    break;
+
+                default:
+                    break;
+            }
+            employeurService.saveEmployeur(employeurByNumeroEmployeur);
+            List<Fichier> fichierList= new ArrayList<>();
+            for(var file: files){
+                String contentType = file.getContentType();
+                String sourceFileContent= new String(file.getBytes(), StandardCharsets.UTF_8);
+                String fileName= file.getOriginalFilename();
+
+                Fichier fichier = new Fichier();
+                fichier.setEmployeur(employeurByNumeroEmployeur);
+                fichier.setNumeroEmployeur(employeurByNumeroEmployeur.getNumeroEmployeur());
+                fichier.setNomFichier(fileName);
+                fichier.setFileContentType(contentType);
+                fichier.setData(file.getBytes());
+
+                fichierList.add(fichier);
+                fichierService.saveFicher(fichier);
+            }
+
         }catch (Exception e){
             System.out.println("Exception : "+e.getMessage());
         }

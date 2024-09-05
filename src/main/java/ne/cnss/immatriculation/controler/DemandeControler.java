@@ -1,13 +1,12 @@
 package ne.cnss.immatriculation.controler;
 
 import jakarta.validation.Valid;
-import ne.cnss.immatriculation.TraitementDemande;
+import ne.cnss.immatriculation.Traitement;
 import ne.cnss.immatriculation.createpdf.DemandePDF;
 import ne.cnss.immatriculation.dto.DemandeDTO;
 import ne.cnss.immatriculation.model.Demande;
 import ne.cnss.immatriculation.model.Fichier;
 import ne.cnss.immatriculation.model.Personne;
-import ne.cnss.immatriculation.repository.FichierRepository;
 import ne.cnss.immatriculation.service.DemandeService;
 import ne.cnss.immatriculation.service.FichierService;
 import ne.cnss.immatriculation.service.PersonneService;
@@ -44,7 +43,7 @@ public class DemandeControler {
     private DemandeService demandeService;
     @GetMapping("/demande/nouvelle_demande")
     public String afficherPageNouvelleDemande(Model model, @RequestParam Long idPersonne){
-        List<String> typesDemande= TraitementDemande.getTypesDemande();
+        List<String> typesDemande= Traitement.getTypesDemande();
 
         model.addAttribute("typesDemande", typesDemande);
 
@@ -53,7 +52,7 @@ public class DemandeControler {
             DemandeDTO nouvelleDemandeDTO= new DemandeDTO();
 
             nouvelleDemandeDTO.setPersonne(personneById);
-            TraitementDemande.setPersonneTemporaire(personneById);
+            Traitement.setPersonneTemporaire(personneById);
 
             model.addAttribute("nouvelleDemandeDTO", nouvelleDemandeDTO);
         }catch (Exception e){
@@ -68,7 +67,7 @@ public class DemandeControler {
     public String pageNouvelleAffiliation(@ModelAttribute DemandeDTO demandeDTO, Model model){
         String chemin="";
         Personne personne = demandeDTO.getPersonne();
-        TraitementDemande.setIndexTypeDemande(demandeDTO.getIndexTypeDemande());
+        Traitement.setIndexTypeDemande(demandeDTO.getIndexTypeDemande());
         switch (demandeDTO.getIndexTypeDemande()){
             case 0,1,2,4:
                 chemin= "demande/nouvelle_affiliation";
@@ -86,11 +85,11 @@ public class DemandeControler {
                                                                            Model model){
         model.addAttribute("newDemandeDTO", demandeDTO);
         try {
-            demandeDTO.setPersonne(TraitementDemande.getPersonneTemporaire());
-            demandeDTO.setLibelle(TraitementDemande.getTypesDemande().get(TraitementDemande.getIndexTypeDemande()));
+            demandeDTO.setPersonne(Traitement.getPersonneTemporaire());
+            demandeDTO.setLibelle(Traitement.getTypesDemande().get(Traitement.getIndexTypeDemande()));
             demandeDTO.setDateDepot(LocalDate.now(ZoneId.of("Africa/Niamey")).toString());
             Demande demande= new Demande(demandeDTO);
-            demande.setPersonne(TraitementDemande.getPersonneTemporaire());
+            demande.setPersonne(Traitement.getPersonneTemporaire());
             demandeService.saveDemande(demande);
 
             List<Fichier> fichierList= new ArrayList<>();

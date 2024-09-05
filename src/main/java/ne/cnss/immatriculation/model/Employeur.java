@@ -2,6 +2,7 @@ package ne.cnss.immatriculation.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 
 import java.io.Serializable;
 
@@ -24,12 +25,15 @@ public class Employeur implements Serializable {
     private int nombreSalaries;
     private String dateEmbauche;
     private String etat;
+    private String motif;
     private String etatValidation;
     private String estSoumisPenalite;
     private String adresse;
     private String region;
     private String ville;
     private String boitePostale;
+    @Transient
+    private String action;
 
     public Employeur() {
         super();
@@ -201,6 +205,22 @@ public class Employeur implements Serializable {
 
     public void setDateEnregistrement(String dateEnregistrement) {
         this.dateEnregistrement = dateEnregistrement;
+    }
+
+    public String getMotif() {
+        return motif;
+    }
+
+    public void setMotif(String motif) {
+        this.motif = motif;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 
     @Override
