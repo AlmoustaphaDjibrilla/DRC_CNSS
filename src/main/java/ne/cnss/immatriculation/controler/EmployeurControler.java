@@ -62,12 +62,12 @@ public class EmployeurControler {
             employeur.setBoitePostale(demandeById.getBoitePostale());
             employeur.setRccm(demandeById.getRccm());
             employeur.setNif(demandeById.getNif());
+            employeur.setEtat("Validé");
 
             if (demandeDTO!=null && demandeDTO.getNumeroEmployeur()!=null)
                 employeur.setNumeroEmployeur(demandeDTO.getNumeroEmployeur());
             else
                 employeur.setNumeroEmployeur(demandeById.getNumeroEmployeur());
-            employeur.setEtat("Validé");
 
             employeurService.saveEmployeur(employeur);
             Personne personne = demandeById.getPersonne();
@@ -163,6 +163,7 @@ public class EmployeurControler {
             && employeur.getRccm()!=null
             && employeur.getNif()!=null){
                 employeur.setDateEnregistrement(LocalDate.now(ZoneId.of("Africa/Niamey")).toString());
+                employeur.setEtat("Validé");
                 employeurService.saveEmployeur(employeur);
 
                 List<Fichier> fichierList= new ArrayList<>();
