@@ -9,28 +9,25 @@ import java.util.List;
 
 @Service
 public class AssureService {
-
     @Autowired
     private AssureRepository assureRepository;
 
-    public Assure addAssure(Assure assure){
-        return assureRepository.save(assure);
+    public Assure findByNumeroSecuriteSociale(String numeroSecuriteSociale){
+        return assureRepository.findByNumeroSecuriteSociale(numeroSecuriteSociale);
     }
 
-    public  void deleteAssure (Assure assure){
-        assureRepository.delete(assure);
+    public Assure findByTelephone(String telephone){
+        return assureRepository.findByTelephone(telephone);
     }
 
-    public  void deleteAssure (Long id){
-        assureRepository.deleteById(id);
+    public Assure findByMail(String mail){
+        return assureRepository.findByMail(mail);
     }
 
-    public List<Assure> getAllAssures(){
+    public List<Assure> findAll(){
         return assureRepository.findAll();
     }
-
-    public Assure findAssure(Long id){
-        var ass =assureRepository.findById(id);
-        return ass.orElse(null);
+    public void saveAssure(Assure assure){
+        assureRepository.save(assure);
     }
 }

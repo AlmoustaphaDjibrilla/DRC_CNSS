@@ -22,6 +22,9 @@ public class Fichier {
     private Demande demande;
     @ManyToOne
     private Personne personne;
+    @ManyToOne
+    private Assure assure;
+    private String numeroSSAssure;
     private Long idDemande;
     private Long idPersonne;
     @ManyToOne
@@ -130,5 +133,21 @@ public class Fichier {
 
     public Employeur getEmployeur() {
         return employeur;
+    }
+
+    public Assure getAssure() {
+        return assure;
+    }
+
+    public void setAssure(Assure assure) {
+        this.assure = assure;
+    }
+
+    public String getNumeroSSAssure() {
+        return numeroSSAssure;
+    }
+
+    public void setNumeroSSAssure(String numeroSSAssure) {
+        this.numeroSSAssure = numeroSSAssure;
     }
 }

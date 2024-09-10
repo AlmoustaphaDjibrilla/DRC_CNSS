@@ -95,7 +95,7 @@
         </a>
       </div>
       <div class="col-md-3">
-        <a th:href="@{/employeur/liste_employeurs}" href="liste_personnes.html" class="text-decoration-none">
+        <a th:href="@{/employeur/liste_employeurs}" class="text-decoration-none">
         <div class="card text-center">
           <div class="card-body">
             <i class="fas fa-briefcase card-icon text-info"></i>
@@ -106,13 +106,15 @@
         </a>
       </div>
       <div class="col-md-3">
+        <a th:href="@{/assure/liste_assures}" class="text-decoration-none">
         <div class="card text-center">
           <div class="card-body">
             <i class="fas fa-id-card card-icon text-success"></i>
             <h5 class="card-title">Assurés</h5>
-            <p class="card-text">0</p>
+            <p class="card-text" th:text="${nombreAssures}"></p>
           </div>
         </div>
+        </a>
       </div>
       <div class="col-md-3">
         <div class="card text-center">
