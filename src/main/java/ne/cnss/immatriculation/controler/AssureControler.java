@@ -122,4 +122,32 @@ public class AssureControler {
         }
         return "assure/ajouter_assure";
     }
+
+    @GetMapping("/assure/recherche")
+    public String searchAssures(@RequestParam("keyword")String keyword, Model model){
+        String cle= keyword.replaceAll(" ", "").toLowerCase();
+        List<Assure> allAssures= assureService.findAll();
+        List<Assure> trouves= new ArrayList<>();
+
+        if (!cle.isEmpty() && !cle.isBlank()){
+            for (var ass: allAssures){
+                if(
+                        ass.getNumeroSecuriteSociale().replaceAll(" ", "").toLowerCase().contains(cle)
+                        ||ass.getNom().replaceAll(" ", "").toLowerCase().contains(cle)
+                        ||ass.getPrenom().replaceAll(" ", "").toLowerCase().contains(cle)
+                        ||ass.getTelephone().replaceAll(" ", "").toLowerCase().contains(cle)
+                        ||ass.getMail().replaceAll(" ", "").toLowerCase().contains(cle)
+                        || (ass.getEmployeur()!=null && ass.getEmployeur().getNumeroEmployeur().replaceAll(" ", "").toLowerCase().contains(cle))
+                ){
+                    trouves.add(ass);
+                }
+            }
+        }else {
+            trouves= new ArrayList<>(allAssures);
+        }
+        model.addAttribute("lesAssures", trouves);
+        model.addAttribute("keyword", keyword);
+        return "assure/liste_assures";
+    }
+
 }

@@ -54,7 +54,7 @@
         <!-- Barre de recherche -->
         <div class="row mb-3">
             <div class="col-md-8">
-                <form class="d-flex" method="get">
+                <form class="d-flex" th:action="@{/assure/recherche}" method="get">
                     <input class="form-control me-2" type="search" name="keyword" placeholder="Rechercher un assuré" aria-label="Search" th:value="${keyword}">
                     <button class="btn btn-outline-success" type="submit">
                         <i class="fas fa-search"></i> Rechercher

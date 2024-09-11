@@ -116,7 +116,7 @@ public class EmployeurControler {
         String key2 = keyword.replaceAll(" ", "").toLowerCase();
         List<Employeur> lesEmployeurs = employeurService.findAll();
         List<Employeur> trouves= new ArrayList<>();
-        if (key2!=null && !key2.isEmpty() && !key2.isBlank()){
+        if (!key2.isEmpty() && !key2.isBlank()){
             for (var emp: lesEmployeurs) {
                 if (
                         emp.getNumeroEmployeur().replaceAll(" ", "").toLowerCase().contains(key2)
