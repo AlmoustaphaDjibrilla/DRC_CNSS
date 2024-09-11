@@ -19,19 +19,6 @@ public class FichierControler {
 
     @GetMapping("fichier/telecharger_fichier")
     public ResponseEntity<byte[]> telechargerFichier(@RequestParam Long idFichier){
-//        Fichier fichierById = fichierService.findFichierById(idFichier);
-//        if (fichierById!=null){
-////            byte[] fileContent = Base64.getDecoder().decode(fichierById.getSourceFileContent());
-////
-////            return ResponseEntity.ok()
-////                    .contentType(MediaType.parseMediaType(fichierById.getFileContentType()))
-////                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+fichierById.getNomFichier()+"\"")
-////                    .body(fileContent);
-//
-//        }else {
-//            return ResponseEntity.notFound().build();
-//        }
-
         return fichierService.telechargerFichier(idFichier)
                 .map(fichier -> {
                     HttpHeaders headers= new HttpHeaders();

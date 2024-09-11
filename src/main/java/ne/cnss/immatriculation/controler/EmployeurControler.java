@@ -35,6 +35,8 @@ public class EmployeurControler {
     private FichierService fichierService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private AssureService assureService;
 
     @GetMapping("/employeur/enregistrer_employeur")
     public ResponseEntity<ByteArrayResource> enregistrerEmployeur(@RequestParam Long idDemande, Model model,
@@ -227,6 +229,7 @@ public class EmployeurControler {
             Employeur employeurByNumeroEmployeur = employeurService.findEmployeurByNumeroEmployeur(numeroEmployeur);
             model.addAttribute("employeur", employeurByNumeroEmployeur);
             model.addAttribute("lesPieces",fichierService.findFichiersByEmployeur(employeurByNumeroEmployeur.getNumeroEmployeur()));
+            model.addAttribute("lesAssures", assureService.findAssuresByEmployeur(employeurByNumeroEmployeur));
 
         }catch (Exception e){
             System.out.println("Exception : "+e.getMessage());

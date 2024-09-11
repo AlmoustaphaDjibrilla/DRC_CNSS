@@ -12,4 +12,5 @@ public interface FichierRepository extends JpaRepository<Fichier, Long> {
 
     List<Fichier> findFichiersByDemande(Demande demande);
     List<Fichier> findFichiersByNumeroEmployeur(String numeroEmployeur);
+    List<Fichier> findFichiersByNumeroSSAssure(String numeroSS);
 }

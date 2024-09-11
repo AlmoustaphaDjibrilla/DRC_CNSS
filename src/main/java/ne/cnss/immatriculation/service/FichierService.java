@@ -50,4 +50,16 @@ public class FichierService {
         }
         return lesFichiers;
     }
+
+    public List<Fichier> findFichiersByNumeroSSAssure(String numeroSS){
+        List<Fichier> all = fichierRepository.findAll();
+        List<Fichier> lesFichiers= new ArrayList<>();
+
+        for (var file : all){
+            if (file.getNumeroSSAssure()!=null && file.getNumeroSSAssure().equals(numeroSS)){
+                lesFichiers.add(file);
+            }
+        }
+        return lesFichiers;
+    }
 }

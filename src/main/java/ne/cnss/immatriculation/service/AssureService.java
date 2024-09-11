@@ -1,6 +1,7 @@
 package ne.cnss.immatriculation.service;
 
 import ne.cnss.immatriculation.model.Assure;
+import ne.cnss.immatriculation.model.Employeur;
 import ne.cnss.immatriculation.repository.AssureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,11 @@ public class AssureService {
         return assureRepository.findByNumeroSecuriteSociale(numeroSecuriteSociale);
     }
 
-    public Assure findByTelephone(String telephone){
+    public List<Assure> findByTelephone(String telephone){
         return assureRepository.findByTelephone(telephone);
     }
 
-    public Assure findByMail(String mail){
+    public List<Assure> findByMail(String mail){
         return assureRepository.findByMail(mail);
     }
 
@@ -29,5 +30,8 @@ public class AssureService {
     }
     public void saveAssure(Assure assure){
         assureRepository.save(assure);
+    }
+    public List<Assure> findAssuresByEmployeur(Employeur employeur){
+        return assureRepository.findAssuresByEmployeur(employeur);
     }
 }

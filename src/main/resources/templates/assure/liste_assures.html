@@ -91,7 +91,8 @@
                 <td th:text="${assure.mail}"></td>
                 <td th:text="${assure.employeur.numeroEmployeur}"></td>
                 <td>
-                    <a class="btn btn-primary btn-sm">
+                    <a class="btn btn-primary btn-sm"
+                    th:href="@{/assure/afficher_assure(numeroSS=${assure.numeroSecuriteSociale})}">
                         <i class="fas fa-eye"></i> Voir
                     </a>
                     <a class="btn btn-warning btn-sm">

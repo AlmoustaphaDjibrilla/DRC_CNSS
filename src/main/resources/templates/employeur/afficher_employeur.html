@@ -136,6 +136,45 @@
     <div class="col-md-8 info-value" th:text="${employeur.mail}"></div>
   </div>
 
+  <!--Les assurés de l'employeur-->
+  <div class="section-title">Les assurés à sa charge</div>
+  <div class="row info-row">
+    <div class="col-md-12 info-value" >
+      <table class="table table-hover">
+        <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Numéro Sécurité Sociale</th>
+          <th>Nom et prénom</th>
+          <th>Téléphone</th>
+          <th>Voir</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="assure : ${lesAssures}">
+          <td th:text="${lesAssures.indexOf(assure)+1}"></td>
+          <td th:text="${assure.numeroSecuriteSociale}"></td>
+          <td th:text="${assure.nomComplet}"></td>
+          <td th:text="${assure.telephone}"></td>
+          <td>
+            <a class="btn btn-primary btn-sm"
+               th:href="@{/assure/afficher_assure(numeroSS=${assure.numeroSecuriteSociale})}">
+              <i class="fas fa-eye"></i> Voir
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--Etat de l'employeur-->
+  <div class="section-title">Etat de l'employeur</div>
+  <div class="row info-row">
+    <div class="col-md-4 info-label">Etat actuel :</div>
+    <div class="col-md-8 info-value" th:text="${employeur.etat}"></div>
+  </div>
+  <br/><br/>
   <div class="text-center mt-4">
     <a th:href="@{/employeur/liste_employeurs}" class="btn btn-secondary">
       <i class="fas fa-arrow-left"></i> Retour à la liste
@@ -143,12 +182,6 @@
   </div>
 </div>
 
-<!--Etat de l'employeur-->
-<div class="section-title">Etat de l'employeur</div>
-<div class="row info-row">
-  <div class="col-md-4 info-label">Etat actuel :</div>
-  <div class="col-md-8 info-value" th:text="${employeur.etat}"></div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

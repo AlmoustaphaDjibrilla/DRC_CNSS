@@ -59,12 +59,12 @@ public class AssureControler {
                 model.addAttribute("employeur", employeurByNumeroEmployeur);
                 return "assure/ajouter_assure";
             }else{
-                Assure tel1=assureService.findByTelephone(assure.getTelephone());
-                Assure mail1= assureService.findByMail(assure.getMail());
+                List<Assure> tel1=assureService.findByTelephone(assure.getTelephone());
+                List<Assure> mail1= assureService.findByMail(assure.getMail());
                 String mail= assure.getMail();
                 String tel= assure.getTelephone();
 
-                if (tel!=null && !tel.strip().isEmpty() && tel1!=null){
+                if (tel!=null && !tel.isBlank() && tel1!=null && tel1.size()!=0){
                     // compte existant avec un meme numéro telephone
                     model.addAttribute("assureExistantTel", "Il existe déjà un assuré avec " +
                             "ce numéro de téléphone ");
@@ -72,7 +72,7 @@ public class AssureControler {
                     return "assure/ajouter_assure";
                 }
                     // compte existant avec une même adresse mail
-                if (mail!=null && !mail.strip().isEmpty() && mail1!=null){
+                if (mail!=null && !mail.isBlank() && mail1!=null && mail1.size()!=0){
                     //
                     model.addAttribute("assureExistantMail", "Il existe déjà un assuré avec " +
                             "cette adresse mail ");
@@ -150,4 +150,18 @@ public class AssureControler {
         return "assure/liste_assures";
     }
 
+    @GetMapping("/assure/afficher_assure")
+    public String afficherAssure(
+            Model model,
+            @RequestParam String numeroSS
+    ){
+        try {
+            Assure byNumeroSecuriteSociale = assureService.findByNumeroSecuriteSociale(numeroSS);
+            model.addAttribute("assure", byNumeroSecuriteSociale);
+            model.addAttribute("lesPieces", fichierService.findFichiersByNumeroSSAssure(numeroSS));
+        }catch (Exception e){
+            System.out.println("Exception : "+e.getMessage());
+        }
+        return "assure/afficher_assure";
+    }
 }
