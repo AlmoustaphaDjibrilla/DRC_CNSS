@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -163,5 +164,97 @@ public class AssureControler {
             System.out.println("Exception : "+e.getMessage());
         }
         return "assure/afficher_assure";
+    }
+
+    @GetMapping("/assure/modifier_assure")
+    public String modifierAssure(
+            Model model,
+            @RequestParam String numeroSS
+    ){
+        try{
+            Assure assure = assureService.findByNumeroSecuriteSociale(numeroSS);
+            model.addAttribute("assure", assure);
+            model.addAttribute("lesPieces", fichierService.findFichiersByNumeroSSAssure(numeroSS));
+        }catch (Exception e){
+            System.out.println("Exception : "+e.getMessage());
+        }
+        return "assure/modifier_assure";
+    }
+
+    /**
+     * modifier les informastions d'un assuré
+     * @param model
+     * @param assure l'objet Assuré qu'envoe le formulaire
+     * @param numeroSS le numéro de l'assuré
+     * @param files les pièces justificatives de l'assuré
+     * @return le chemin d'une page en fonction du traitement
+     * @throws IOException
+     */
+    @PostMapping("/assure/modifier_assure")
+    public String modifierAssure(
+            Model model,
+            @ModelAttribute Assure assure,
+            @RequestParam String numeroSS,
+            @RequestParam ("piecesJointes") MultipartFile[] files
+    ) throws IOException {
+        try {
+            Assure assureOriginal = assureService.findByNumeroSecuriteSociale(numeroSS);
+            assureOriginal.setNom(assure.getNom());
+            assureOriginal.setPrenom(assure.getPrenom());
+            assureOriginal.setDateNaissance(assure.getDateNaissance());
+            assureOriginal.setLieuNaissance(assure.getLieuNaissance());
+            assureOriginal.setDateEmbauche(assure.getDateEmbauche());
+            assureOriginal.setNombreEpouses(assure.getNombreEpouses());
+            assureOriginal.setNombreEnfants(assure.getNombreEnfants());
+            assureOriginal.setNomPrenomMere(assure.getNomPrenomMere());
+            assureOriginal.setAdresse(assure.getAdresse());
+            assureOriginal.setRegion(assure.getRegion());
+            List<Assure> byTelephone = assureService.findByTelephone(assure.getTelephone());
+            //vérifier si un autre assuré utilise déjà ce numéro de téléphone
+            if (
+                    ( assure.getTelephone()!=null && (!assure.getTelephone().isBlank() || !assure.getTelephone().isEmpty() ))
+                    && (byTelephone!=null && byTelephone.size()!=0)
+            ){
+                model.addAttribute("assureExistantTel", "Il existe déjà un assuré avec " +
+                        "ce numéro de téléphone");
+                model.addAttribute("assure", assureOriginal);
+                return "assure/modifier_assure";
+            }
+            assureOriginal.setTelephone(assure.getTelephone());
+
+            //vérifier si un autre assuré utilise déjà cette adresse Mail
+            List<Assure> byMail = assureService.findByMail(assure.getMail());
+            if (
+                    ( assure.getMail()!=null && (!assure.getMail().isBlank() || !assure.getMail().isEmpty() ))
+                            && (byMail!=null && byMail.size()!=0)
+            ){
+                model.addAttribute("assureExistantMail", "Il existe déjà un assuré avec " +
+                        "cette adresse mail ");
+                model.addAttribute("assure", assureOriginal);
+                return "assure/modifier_assure";
+            }
+            assureOriginal.setMail(assure.getMail());
+            assureService.saveAssure(assureOriginal);
+
+            //enregistrer les fichiers associés à l'assuré
+            List<Fichier> fichierList = new ArrayList<>();
+            for (var file : files) {
+                String contentType = file.getContentType();
+                String fileName = file.getOriginalFilename();
+
+                Fichier fichier = new Fichier();
+                fichier.setAssure(assureOriginal);
+                fichier.setNumeroSSAssure(assureOriginal.getNumeroSecuriteSociale());
+                fichier.setNomFichier(fileName);
+                fichier.setFileContentType(contentType);
+                fichier.setData(file.getBytes());
+
+                fichierList.add(fichier);
+                fichierService.saveFicher(fichier);
+            }
+        }catch (Exception e){
+            System.out.println("Exception : "+e.getMessage());
+        }
+        return "redirect:liste_assures";
     }
 }

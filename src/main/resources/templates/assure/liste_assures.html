@@ -78,7 +78,6 @@
                 <th>Téléphone</th>
                 <th>E-mail</th>
                 <th>Numéro Employeur</th>
-                <th></th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -95,7 +94,8 @@
                     th:href="@{/assure/afficher_assure(numeroSS=${assure.numeroSecuriteSociale})}">
                         <i class="fas fa-eye"></i> Voir
                     </a>
-                    <a class="btn btn-warning btn-sm">
+                    <a class="btn btn-warning btn-sm"
+                    th:href="@{/assure/modifier_assure(numeroSS=${assure.numeroSecuriteSociale})}">
                         <i class="fas fa-edit"></i> Modifier
                     </a>
                 </td>

@@ -259,7 +259,6 @@ public class EmployeurControler {
             @RequestParam String numeroEmployeur,
             @RequestParam("piecesJointes")MultipartFile[] files
     ){
-        System.out.println("Employeur : "+employeur);
         try {
             Employeur employeurByNumeroEmployeur = employeurService.findEmployeurByNumeroEmployeur(numeroEmployeur);
             if (employeur!=null){
@@ -280,7 +279,6 @@ public class EmployeurControler {
                 List<Fichier> fichierList= new ArrayList<>();
                 for(var file: files){
                     String contentType = file.getContentType();
-                    String sourceFileContent= new String(file.getBytes(), StandardCharsets.UTF_8);
                     String fileName= file.getOriginalFilename();
 
                     Fichier fichier = new Fichier();
@@ -288,7 +286,6 @@ public class EmployeurControler {
                     fichier.setNumeroEmployeur(employeurByNumeroEmployeur.getNumeroEmployeur());
                     fichier.setNomFichier(fileName);
                     fichier.setFileContentType(contentType);
-//                fichier.setSourceFileContent(sourceFileContent);
                     fichier.setData(file.getBytes());
 
                     fichierList.add(fichier);

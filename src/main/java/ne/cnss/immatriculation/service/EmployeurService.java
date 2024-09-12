@@ -25,6 +25,13 @@ public class EmployeurService {
         return employeurRepository.findByNumeroEmployeur(id);
     }
 
+    public List<Employeur> findEmployeursByTelephone(String telephone){
+        return employeurRepository.findEmployeursByTelephone(telephone);
+    }
+
+    public List<Employeur> findEmployeursByMail(String  mail){
+        return employeurRepository.findEmployeursByMail(mail);
+    }
     public void deleteEmployeur(Employeur employeur){
         employeurRepository.delete(employeur);
     }
