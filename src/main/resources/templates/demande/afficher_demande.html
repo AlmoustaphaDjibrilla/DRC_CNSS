@@ -150,21 +150,23 @@
                 </fieldset>
 
                 <!-- Numéro employeur -->
-                <fieldset class="border p-4 mb-4">
-                    <legend class="w-auto">Numéro employeur</legend>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <label class="form-label">Numéro employeur</label>
-                            <input required type="text" class="form-control" th:field="${afficherDemandeDTO.numeroEmployeur}">
-                        </div>
-                    </div>
-                </fieldset>
+<!--                <fieldset class="border p-4 mb-4">-->
+<!--                    <legend class="w-auto">Numéro employeur</legend>-->
+<!--                    <div class="row mb-3">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <label class="form-label">Numéro employeur</label>-->
+<!--                            <input required type="text" class="form-control" th:field="${afficherDemandeDTO.numeroEmployeur}">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </fieldset>-->
 
             </div>
 
             <div class="card-footer d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2">Générer le numéro employeur</button>
-                <a type="submit" class="btn btn-success" th:href="@{/employeur/enregistrer_employeur(idDemande=${afficherDemandeDTO.id})}">Valider la demande</a>
+<!--                <button type="submit" class="btn btn-primary me-2">Générer le numéro employeur</button>-->
+                <a type="submit" class="btn btn-success"
+                   th:href="@{/employeur/enregistrer_employeur(idDemande=${afficherDemandeDTO.id})}">Valider la demande
+                </a>
             </div>
         </div>
     </form>
