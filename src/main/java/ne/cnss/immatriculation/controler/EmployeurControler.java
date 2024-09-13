@@ -141,7 +141,6 @@ public class EmployeurControler {
         return "employeur/liste_employeurs";
     }
 
-
     @GetMapping("employeur/liste_employeurs")
     public String afficherTousEmployeurs(Model model){
         List<Employeur> all = employeurService.findAll();
@@ -161,9 +160,8 @@ public class EmployeurControler {
                                              @RequestParam("piecesJointes") MultipartFile[] files){
         try{
             model.addAttribute("nouvelEmployeur", employeur);
-            if (employeur.getNumeroEmployeur()!=null
-            && employeur.getRccm()!=null
-            && employeur.getNif()!=null){
+            if (employeur.getRccm()!=null
+                && employeur.getNif()!=null){
                 employeur.setDateEnregistrement(LocalDate.now(ZoneId.of("Africa/Niamey")).toString());
                 employeur.setEtat("Validé");
                 employeurService.saveEmployeur(employeur);

@@ -50,7 +50,6 @@
 
 <!--  Informations sur l'employeur-->
   <form method="post" th:action="@{/assure/rechercher_employeur}" >
-
     <div class="section-title">L'employeur</div>
     <div class="form-group">
       <label for="numeroEmployeur" class="form-label">
@@ -88,7 +87,8 @@
 
   </form>
 
-  <form method="post" class="needs-validation" novalidate enctype="multipart/form-data" th:if="${employeur}" th:object="${assure}" th:action="@{/assure/ajouter_assure(numeroEmployeur=${employeur.numeroEmployeur})}">
+  <form method="post" class="needs-validation" novalidate enctype="multipart/form-data" th:if="${employeur}" th:object="${assure}"
+        th:action="@{/assure/ajouter_assure(numeroEmployeur=${employeur.numeroEmployeur})}">
 
     <!-- Informations de Base -->
     <div class="section-title">Informations de Base</div>
@@ -96,7 +96,8 @@
       <label class="form-label">
         <i class="fas fa-id-card me-2"></i>
         Numéro Sécurité Sociale</label>
-      <input type="text" class="form-control" placeholder="Numéro Sécurité Sociale" th:field="${assure.numeroSecuriteSociale}" required>
+      <input type="text" class="form-control" placeholder="Numéro Sécurité Sociale" pattern="[0-9]+" maxlength="6" minlength="6"
+             th:field="${assure.numeroSecuriteSociale}" required>
       <div th:if="${assureExistant}" th:text="${assureExistant}" style="color: red;">
       </div>
     </div>

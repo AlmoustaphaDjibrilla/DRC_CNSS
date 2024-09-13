@@ -1,14 +1,24 @@
 package ne.cnss.immatriculation.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
+import ne.cnss.immatriculation.Traitement;
 
 import java.io.Serializable;
 
 @Entity
 public class Employeur implements Serializable {
     @Id
+    @SequenceGenerator(
+            name = "sequence_employeur",
+            allocationSize = 1,
+            sequenceName = "sequence_employeur",
+            initialValue = 75
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "sequence_employeur"
+    )
+    private Integer id;
     private String numeroEmployeur;
     private String nom;
     private String prenom;
@@ -16,7 +26,6 @@ public class Employeur implements Serializable {
     private String mail;
     private String sexe;
     private String dateEnregistrement;
-
     private String sigleSociete;
     private String rccm;
     private String nif;
@@ -40,6 +49,8 @@ public class Employeur implements Serializable {
     }
 
     public String getNumeroEmployeur() {
+        if (this.numeroEmployeur==null && this.id!=null)
+            this.numeroEmployeur= Traitement.convertirNombreEn5Caracteres(this.id);
         return numeroEmployeur;
     }
 
@@ -221,6 +232,14 @@ public class Employeur implements Serializable {
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
