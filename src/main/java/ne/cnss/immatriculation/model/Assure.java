@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
-
+///je test mon git....
 @Entity
 public class Assure implements Serializable {
     @Id
