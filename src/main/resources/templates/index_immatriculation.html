@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -70,7 +70,7 @@
       <div class="d-flex align-items-center">
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            IDRISSA Seyni
+            IDRISSA SEYNI Issoufou
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" href="#">Profil</a></li>
@@ -117,13 +117,15 @@
         </a>
       </div>
       <div class="col-md-3">
+        <a th:href="@{/voitures/list}" class="text-decoration-none">
         <div class="card text-center">
           <div class="card-body">
             <i class="fas fa-truck card-icon text-warning"></i>
             <h5 class="card-title">Transporteurs Indépendants</h5>
-            <p class="card-text">0</p>
+            <p class="card-text" th:text="${nombreEmployeurs}"></p>
           </div>
         </div>
+        </a>
       </div>
     </div>
 

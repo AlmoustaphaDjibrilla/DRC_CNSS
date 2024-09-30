@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifier une Voiture</title>
+</head>
+<body>
+<h1>Modifier une Voiture</h1>
+<form th:action="@{/voitures/edit/{id}(id=${voiture.idVehicul})}" th:object="${voiture}" method="post">
+    <div>
+        <label>Numéro d'Immatriculation :</label>
+        <input type="text" th:field="*{numImmatricul}" />
+    </div>
+    <div>
+        <label>Tonnage :</label>
+        <input type="number" step="0.01" th:field="*{tonnage}" />
+    </div>
+    <div>
+        <label>Nombre de Places :</label>
+        <input type="number" th:field="*{nbrPlace}" />
+    </div>
+    <div>
+        <label>Date de Début de Service :</label>
+        <input type="date" th:field="*{dateDebutService}" />
+    </div>
+    <div>
+        <label>Date de Fin de Service :</label>
+        <input type="date" th:field="*{dateFinService}" />
+    </div>
+    <div>
+        <button type="submit">Mettre à Jour</button>
+    </div>
+</form>
+<a href="/voitures">Retour à la liste</a>
+</body>
+</html>

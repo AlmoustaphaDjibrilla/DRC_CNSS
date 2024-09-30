@@ -12,7 +12,6 @@ import java.util.List;
 public class AssureService {
     @Autowired
     private AssureRepository assureRepository;
-
     public Assure findByNumeroSecuriteSociale(String numeroSecuriteSociale){
         return assureRepository.findByNumeroSecuriteSociale(numeroSecuriteSociale);
     }
