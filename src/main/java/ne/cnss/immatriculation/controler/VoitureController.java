@@ -20,24 +20,24 @@ public class VoitureController {
         return "voitures/list";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/voitures/create")
     public String createVoitureForm(Model model) {
         model.addAttribute("voiture", new Voiture());
         return "voitures/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/voitures/create")
     public String saveVoiture(@ModelAttribute Voiture voiture) {
         voitureService.saveVoiture(voiture);
         return "redirect:/voitures/list"; // Redirige vers la liste des voitures après création
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/voitures/edit/{id}")
     public String editVoitureForm(@PathVariable Long id, Model model) {
         Optional<Voiture> voiture = voitureService.getVoitureById(id);
         if (voiture.isPresent()) {
             model.addAttribute("voiture", voiture.get());
-            return "edit_voiture";
+            return "voitures/edit_voiture";
         } else {
             return "404";
         }
@@ -47,10 +47,10 @@ public class VoitureController {
     public String updateVoiture(@PathVariable Long id, @ModelAttribute Voiture voiture) {
         voiture.setIdVehicul(id);
         voitureService.saveVoiture(voiture);
-        return "redirect:/voitures";
+        return "redirect:list";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/voitures/delete/{id}")
     public String deleteVoiture(@PathVariable Long id) {
         voitureService.deleteVoiture(id);
         return "redirect:/voitures";

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enregistrement</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-lg-6 mx-auto rounded border p-4">
+      <h2 class="text-center mb-4">Enregistrement</h2>
+      <hr>
+
+<!--        Afficher seulement si l'utilisateur a bien été enregistré-->
+        <div th:if="${succes}"
+             class="alert alert-success alert-dismissible fade show"
+             role="alert">
+            <strong>Le compte a bien été enregistré</strong>
+            <a class="ms-2" href="/login">Se connecter</a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+      <form method="post" th:object="${enregistrementDTO}">
+<!--        La balise suivante est obligatoire et utilisée pour spring securiy-->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Nom*</label>
+          <div class="col-sm-8">
+            <input class="form-control" th:field="${enregistrementDTO.nom}">
+            <p th:if="${#fields.hasErrors('nom')}"
+               th:errorclass="text-danger"
+               th:errors="${enregistrementDTO.nom}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Prenom</label>
+          <div class="col-sm-8">
+            <input class="form-control" th:field="${enregistrementDTO.prenom}">
+            <p th:if="${#fields.hasErrors('prenom')}"
+               th:errorclass="text-danger"
+               th:errors="${enregistrementDTO.prenom}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Matricule*</label>
+          <div class="col-sm-8">
+            <input class="form-control" th:field="${enregistrementDTO.matricule}">
+            <p th:if="${#fields.hasErrors('matricule')}"
+               th:errorclass="text-danger"
+               th:errors="${enregistrementDTO.matricule}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Mot de passe*</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="password" th:field="${enregistrementDTO.password}">
+            <p th:if="${#fields.hasErrors('password')}"
+               th:errorclass="text-danger"
+               th:errors="${enregistrementDTO.password}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Confirmer le mot de passe*</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="password" th:field="${enregistrementDTO.passwordConfirme}">
+            <p th:if="${#fields.hasErrors('passwordConfirme')}"
+               th:errorclass="text-danger"
+               th:errors="${enregistrementDTO.passwordConfirme}"></p>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="offset-sm-4 col-sm-4 d-grid">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+          </div>
+          <div class="col-sm-4 d-grid">
+            <a href="/" class="btn btn-outline-primary">Annuler</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

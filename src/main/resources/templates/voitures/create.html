@@ -17,23 +17,23 @@
             <form th:action="@{/voitures/create}" th:object="${voiture}" method="post">
     <div>
         <label>Numéro d'Immatriculation :</label>
-        <input type="text" th:field="*{voiture.numImmatricul}" placeholder="Veuiller saisir le numero immatriculation ..."/>
-        <p th:if="${#fields.hasErrors(numImmatricul)}" th:errorclass="text-danger" th:errors="${numImmatricul}"></p>
+        <input type="text" th:field="${voiture.numImmatricul}" placeholder="Veuiller saisir le numero immatriculation ..."/>
+<!--        <p th:if="${#fields.hasErrors('numImmatricul')}" th:errorclass="text-danger" th:errors="${'numImmatricul'}"></p>-->
 
         <label>Tonnage :</label>
-        <input type="number" step="0.01" th:field="*{voiture.tonnage}"/>
+        <input type="number" step="0.01" th:field="${voiture.tonnage}"/>
     </div>
     <div>
         <label>Nombre de Places :</label>
-        <input type="number" step="1" th:field="*{voiture.nbrPlace}" />
+        <input type="number" step="1" th:field="${voiture.nbrPlace}" />
     </div>
     <div>
         <label>Date de Début de Service :</label>
-        <input type="date" th:field="*{voiure.dateDebutService}" />
+        <input type="date" th:field="${voiture.dateDebutService}" />
     </div>
     <div>
         <label>Date de Fin de Service :</label>
-        <input type="date" th:field="*{voiture.dateFinService}" />
+        <input type="date" th:field="${voiture.dateFinService}" />
     </div>
 
     <div class="row">
@@ -41,12 +41,12 @@
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
         <div class="col-sm-4 d-grid">
-            <a class="btn btn-outline-primary" role="button" href="/voitures/liste_voiture">Annuler</a>
+            <a class="btn btn-outline-primary" role="button" href="/voitures/list">Annuler</a>
         </div>
     </div>
     </form>
-    <a href="/voitures/create">Créer une nouvelle Voiture </a>
-    <a href="/voitures">Retour à la liste des voitures....</a>
-
+    </div>
+    </div>
+</div>
 </body>
 </html>
